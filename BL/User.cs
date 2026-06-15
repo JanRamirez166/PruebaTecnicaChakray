@@ -57,7 +57,7 @@ namespace BL
             string[] parametros = filter.Split('+', 3);
 
             //filtrar la lista dependiendo de si sorted by venga vacio o no, VACIO = Lista por default si no con la list ordenada
-            resultado = (parametros[0], parametros[1]) switch
+            var resultadoFiltrado = (parametros[0], parametros[1]) switch
             {
                 ("email", "co") => resultado.Where(x => x.email.Contains(parametros[2])),
                 ("email", "eq") => resultado.Where(x => x.email == parametros[2]),
@@ -86,9 +86,9 @@ namespace BL
             };
 
 
-            if (resultado.ToList().Count > 0)
+            if (resultadoFiltrado.ToList().Count > 0)
             {
-                result.Objects = resultado.ToList();
+                result.Objects = resultadoFiltrado.ToList();
                 result.Correct = true;
                 result.status = 200;
             }
