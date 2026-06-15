@@ -10,6 +10,97 @@ namespace BL
 {
     public class User
     {
+        public ML.Result GetAll(string? filter, string? sortedBy)
+        {
+            ML.Result result = new ML.Result();
+
+            //traer toda la informacion
+            var query = DL.EJanBD.users.ToList();
+
+            IEnumerable<ML.User> resultado = query;
+
+            //validar si filter esta vacio, si esta vacio o nulo mandarle un error al usuario
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                result.Correct = false;
+                result.ErrorMessage = "filter no puede estar vacio o nulo";
+                result.status = 400;
+                return result;
+            }
+
+            /*validar ahora sorted by, si no viene nulo que haga la ordenacion, si viene nulo dejamos la lista*/
+            if (!string.IsNullOrWhiteSpace(sortedBy))
+            {
+                switch (sortedBy)
+                {
+                    case "email":
+                        resultado = query.OrderBy(u => u.email);
+                        break;
+                    case "id":
+                        resultado = query.OrderBy(u => u.id);
+                        break;
+                    case "name":
+                        resultado = query.OrderBy(u => u.name);
+                        break;
+                    case "phone":
+                        resultado = query.OrderBy(u => u.phone);
+                        break;
+                    case "created at":
+                        resultado = query.OrderBy(u => u.created_at);
+                        break;
+
+                }
+            }
+
+
+            //separar el filtro en los 3 parametros
+            string[] parametros = filter.Split('+', 3);
+
+            //filtrar la lista dependiendo de si sorted by venga vacio o no, VACIO = Lista por default si no con la list ordenada
+            resultado = (parametros[0], parametros[1]) switch
+            {
+                ("email", "co") => resultado.Where(x => x.email.Contains(parametros[2])),
+                ("email", "eq") => resultado.Where(x => x.email == parametros[2]),
+                ("email", "sw") => resultado.Where(x => x.email.StartsWith(parametros[2])),
+                ("email", "ew") => resultado.Where(x => x.email.EndsWith(parametros[2])),
+
+                ("name", "co") => resultado.Where(x => x.name.Contains(parametros[2])),
+                ("name", "eq") => resultado.Where(x => x.name == parametros[2]),
+                ("name", "sw") => resultado.Where(x => x.name.StartsWith(parametros[2])),
+                ("name", "ew") => resultado.Where(x => x.name.EndsWith(parametros[2])),
+
+                ("phone", "co") => resultado.Where(x => x.phone.Contains(parametros[2])),
+                ("phone", "eq") => resultado.Where(x => x.phone == parametros[2]),
+                ("phone", "sw") => resultado.Where(x => x.phone.StartsWith(parametros[2])),
+                ("phone", "ew") => resultado.Where(x => x.phone.EndsWith(parametros[2])),
+
+                ("id", "co") => resultado.Where(x => x.id.Contains(parametros[2])),
+                ("id", "eq") => resultado.Where(x => x.id == parametros[2]),
+                ("id", "sw") => resultado.Where(x => x.id.StartsWith(parametros[2])),
+                ("id", "ew") => resultado.Where(x => x.id.EndsWith(parametros[2])),
+
+                ("created at", "co") => resultado.Where(x => x.created_at.Contains(parametros[2])),
+                ("created at", "eq") => resultado.Where(x => x.created_at == parametros[2]),
+                ("created at", "sw") => resultado.Where(x => x.created_at.StartsWith(parametros[2])),
+                ("created at", "ew") => resultado.Where(x => x.created_at.EndsWith(parametros[2]))
+            };
+
+
+            if (resultado.ToList().Count > 0)
+            {
+                result.Objects = resultado.ToList();
+                result.Correct = true;
+                result.status = 200;
+            }
+            else
+            {
+                result.ErrorMessage = "No hay registros con este filtrado";
+                result.Correct = false;
+                result.status = 404;
+            }
+
+            return result;
+        }
 
         public ML.Result GetById(string id)
         {
