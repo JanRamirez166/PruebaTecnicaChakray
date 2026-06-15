@@ -50,7 +50,13 @@ namespace BL
                 );
                 user.created_at = fechaMadagascar.ToString("dd-MM-yyyy HH:mm");
 
+                //Agregar la contraseña encriptada
+                user.password = EncryptionHelper.Encrypt(user.password);
+
                 DL.EJanBD.users.Add(user);
+
+                user.password = null;
+
                 result.Object = user;
                 result.Correct = true;
                 result.status = 201;
