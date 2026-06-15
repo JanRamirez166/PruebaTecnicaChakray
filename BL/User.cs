@@ -42,6 +42,13 @@ namespace BL
 
             if (!resultGetById.Correct)
             {
+                //Agreagr la fecha
+                var zonaMadagascar = TimeZoneInfo.FindSystemTimeZoneById("E. Africa Standard Time");
+                var fechaMadagascar = TimeZoneInfo.ConvertTimeFromUtc(
+                    DateTime.UtcNow,
+                    zonaMadagascar
+                );
+                user.created_at = fechaMadagascar.ToString("dd-MM-yyyy HH:mm");
 
                 DL.EJanBD.users.Add(user);
                 result.Object = user;
