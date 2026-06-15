@@ -16,6 +16,7 @@ namespace ML
         public string? password { get; set; }
         public string? tax_id { get; set; }
         public string? created_at { get; set; }
+        public List<Address>? addresses { get; set; }
 
     }
 }
