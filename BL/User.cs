@@ -159,6 +159,16 @@ namespace BL
                 //Agregar la contraseña encriptada
                 user.password = EncryptionHelper.Encrypt(user.password);
 
+                //Agrear el id de a la direccion
+                if (user.addresses != null)
+                {
+                    int contador = 1; 
+                    foreach (ML.Address address in user.addresses) {
+                        address.id = contador++;
+                    }
+                    
+                }
+
                 DL.EJanBD.users.Add(user);
 
                 user.password = null;
