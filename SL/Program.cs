@@ -34,6 +34,7 @@ using (var scope = app.Services.CreateScope())
             name = "Juan Perez",
             phone = "5587654321",
             password = "Juan456",
+            tax_id = "ABC850624XYZ",
             addresses = new List<Address>{
                        new Address{
                         id = 1,
@@ -58,6 +59,7 @@ using (var scope = app.Services.CreateScope())
             name = "Maria Lopez",
             phone = "5544455566",
             password = "Maria789",
+            tax_id = "GODE561231GR8",
             addresses = new List<Address>{
                         new Address{
                             id = 1,
@@ -75,6 +77,7 @@ using (var scope = app.Services.CreateScope())
              name = "Abigail Sanchez",
              phone = "5512345678",
              password = "Abigail321",
+             tax_id = "ÑA&L9901011A2",
              addresses = new List<Address>
     {
         new Address

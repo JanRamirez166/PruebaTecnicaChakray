@@ -133,6 +133,21 @@ namespace BL
 
             if (!resultGetById.Correct)
             {
+                
+                if (!Regex.IsMatch(user.tax_id, @"^([A-ZÑ&]{3,4})\d{6}([A-Z0-9]{3})$")) {
+                    result.ErrorMessage += "Formato invalido de tax_id,";
+                }
+
+                if (!Regex.IsMatch(user.phone, @"^(\+?\d{1,3})?\d{10}$")) {
+                    result.ErrorMessage += "Formato invalido de telefono";
+                }
+
+                if (result.ErrorMessage != null) {
+                    result.Correct = false;
+                    result.status = 400;
+                    return result;
+                }
+
                 //Agreagr la fecha
                 var zonaMadagascar = TimeZoneInfo.FindSystemTimeZoneById("E. Africa Standard Time");
                 var fechaMadagascar = TimeZoneInfo.ConvertTimeFromUtc(
