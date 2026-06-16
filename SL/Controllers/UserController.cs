@@ -21,5 +21,12 @@ namespace SL.Controllers
             return StatusCode(result.status, result);
         }
 
+        [HttpPost]
+        public IActionResult Add([FromBody] ML.User user)
+        {
+            ML.Result result = _user.Add(user);
+            return StatusCode(result.status, result);
+        }
+
     }
 }
