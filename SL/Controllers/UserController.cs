@@ -14,5 +14,12 @@ namespace SL.Controllers
             _user = user;
         }
 
+        [HttpGet]
+        public IActionResult GetAll([FromQuery] string? filter, [FromQuery] string? sortedBy)
+        {
+            ML.Result result = _user.GetAll(filter, sortedBy);
+            return StatusCode(result.status, result);
+        }
+
     }
 }
