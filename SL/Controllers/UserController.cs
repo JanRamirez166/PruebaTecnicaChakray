@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SL.Controllers
@@ -26,6 +27,19 @@ namespace SL.Controllers
         {
             ML.Result result = _user.Add(user);
             return StatusCode(result.status, result);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PartialUpdate([FromBody] JsonPatchDocument<ML.User> user, string id)
+        {
+            //ML.Result result = _user.PartialUpdate(user, id);
+            ML.Result result = _user.GetById(id);
+            ML.User userFind = (ML.User)result.Object;
+
+            if (result.Correct) {
+                user.ApplyTo(userFind);
+            }
+            return StatusCode(result.status, userFind);
         }
 
     }

@@ -180,9 +180,21 @@ namespace BL
 
                 DL.EJanBD.users.Add(user);
 
+                ML.User userAgregado = new ML.User
+                {
+                    id = user.id,
+                    email = user.email,
+                    name = user.name,
+                    phone = user.phone,
+                    tax_id = user.tax_id,
+                    created_at = user.created_at,
+                    addresses = user.addresses
+                };
+
+
                 user.password = null;
 
-                result.Object = user;
+                result.Object = userAgregado;
                 result.Correct = true;
                 result.status = 201;
 
