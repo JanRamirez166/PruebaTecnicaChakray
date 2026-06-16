@@ -56,7 +56,7 @@ namespace BL
             //separar el filtro en los 3 parametros
             string[] parametros = filter.Split('+', 3);
 
-            //filtrar la lista dependiendo de si sorted by venga vacio o no, VACIO = Lista por default si no con la list ordenada
+            //filtrar la lista dependiendo de si sorted by venga vacio o no, VACIO = Lista por default si no con la lista ordenada
             var resultadoFiltrado = (parametros[0], parametros[1]) switch
             {
                 ("email", "co") => resultado.Where(x => x.email.Contains(parametros[2])),
