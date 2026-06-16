@@ -56,7 +56,7 @@ namespace SL.Controllers
         public IActionResult Delete(string id)
         {
             ML.Result result = _user.Delete(id);
-            return StatusCode(result.status, result.Objects);
+            return StatusCode(result.status, result);
 
         }
 
