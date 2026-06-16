@@ -125,6 +125,15 @@ namespace BL
         {
             ML.Result result = new ML.Result();
 
+            //validar que no re repita tax_id, osea unique
+            if (DL.EJanBD.users.Any(u => u.tax_id == user.tax_id))
+            {
+                result.Correct = false;
+                result.status = 400;
+                result.ErrorMessage = "Tax_id debe ser unico";
+                return result;
+            }
+
             //agregar el id de guid
             user.id = Guid.NewGuid().ToString();
 
@@ -184,7 +193,6 @@ namespace BL
                 result.status = 500;
                 result.ErrorMessage = "Este usuario ya existe";
             }
-
 
             return result;
 
