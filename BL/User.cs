@@ -234,6 +234,31 @@ namespace BL
             return result;
         }
 
+        public ML.Result Delete(string id)
+        {
+            ML.Result result = new ML.Result();
+
+            ML.Result resultGetById = GetById(id);
+
+            if (resultGetById != null)
+            {
+                ML.User findUser = (ML.User)resultGetById.Object;
+                DL.EJanBD.users.Remove(findUser);
+
+                result.Object = "Usuario eliminado";
+                result.status = 200;
+                result.Correct = true;
+            }
+            else
+            {
+                result.ErrorMessage = "No existe un registro con este id proporcionado";
+                result.Correct = false;
+                result.status = 404;
+            }
+
+            return result;
+        }
+
 
     }
 }

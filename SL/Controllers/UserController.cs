@@ -52,5 +52,13 @@ namespace SL.Controllers
             return StatusCode(result.status, userFind);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            ML.Result result = _user.Delete(id);
+            return StatusCode(result.status, result.Objects);
+
+        }
+
     }
 }
