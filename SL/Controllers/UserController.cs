@@ -18,6 +18,16 @@ namespace SL.Controllers
         [HttpGet]
         public IActionResult GetAll([FromQuery] string? filter, [FromQuery] string? sortedBy)
         {
+            //validar si filter esta vacio, si esta vacio o nulo mandarle un error al usuario
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                return BadRequest(new
+                {
+                    correct = false,
+                    errorMessage = "Filter no pude estar vacio"
+                });
+            }
+
             ML.Result result = _user.GetAll(filter, sortedBy);
             return StatusCode(result.status, result);
         }

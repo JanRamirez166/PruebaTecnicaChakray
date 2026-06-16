@@ -19,15 +19,6 @@ namespace BL
 
             IEnumerable<ML.User> resultado = query;
 
-            //validar si filter esta vacio, si esta vacio o nulo mandarle un error al usuario
-            if (string.IsNullOrWhiteSpace(filter))
-            {
-                result.Correct = false;
-                result.ErrorMessage = "filter no puede estar vacio o nulo";
-                result.status = 400;
-                return result;
-            }
-
             /*validar ahora sorted by, si no viene nulo que haga la ordenacion, si viene nulo dejamos la lista*/
             if (!string.IsNullOrWhiteSpace(sortedBy))
             {
