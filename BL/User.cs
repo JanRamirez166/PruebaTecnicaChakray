@@ -130,7 +130,7 @@ namespace BL
             {
                 result.Correct = false;
                 result.status = 400;
-                result.ErrorMessage = "Tax_id debe ser unico";
+                result.ErrorMessage = "El Tax_id proporcionado ya existe";
                 return result;
             }
 
