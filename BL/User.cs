@@ -190,6 +190,39 @@ namespace BL
 
         }
 
+        public ML.Result PartialUpdate(ML.User user, string id)
+        {
+            ML.Result result = new ML.Result();
+
+            ML.Result resultGetById = GetById(id);
+
+            if (resultGetById != null)
+            {
+                ML.User findUser = (ML.User)resultGetById.Object;
+
+                var propiedades = typeof(ML.User).GetProperties();//traer las propiedadades del modelo de usuario
+
+                foreach (var propiedad in propiedades)//recorre cada propiedad del modelo de usuario
+                {
+                    var value = propiedad.GetValue(user);//a apartir  de la propiedad leemos lo que envio el el usuario desde la api
+
+                    if (value != null)
+                    {
+                        propiedad.SetValue(findUser, value);//en esa propiedad coloca lo que envio el usuario desde la api
+                    }
+                }
+            }
+            else
+            {
+                result.Correct = false;
+                result.ErrorMessage = "Este usuario no existe";
+                result.status = 404;
+            }
+
+
+            return result;
+        }
+
 
     }
 }
