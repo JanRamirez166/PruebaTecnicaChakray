@@ -28,6 +28,7 @@ namespace SL.Controllers
             if (result.Correct)
             {
                 string token = GenerarJwtToken();
+                return Ok(token);
             }
             else
             {
@@ -54,7 +55,7 @@ namespace SL.Controllers
                 issuer: "yourdomain.com",
                 audience: "yourdomain.com",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
