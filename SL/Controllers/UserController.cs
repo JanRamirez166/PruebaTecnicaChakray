@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace SL.Controllers
             _user = user;
         }
 
+        [Authorize] 
         [HttpGet]
         public IActionResult GetAll([FromQuery] string? filter, [FromQuery] string? sortedBy)
         {
