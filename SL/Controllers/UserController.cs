@@ -34,6 +34,7 @@ namespace SL.Controllers
             return StatusCode(result.status, result);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Add([FromBody] ML.User user)
         {
@@ -41,6 +42,7 @@ namespace SL.Controllers
             return StatusCode(result.status, result);
         }
 
+        [Authorize]
         [HttpPatch("{id}")]
         public IActionResult PartialUpdate([FromBody] JsonPatchDocument<ML.User> user, string id)
         {
@@ -54,6 +56,7 @@ namespace SL.Controllers
             return StatusCode(result.status, userFind);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {

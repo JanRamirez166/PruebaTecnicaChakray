@@ -34,10 +34,6 @@ namespace SL.Controllers
             {
                 return StatusCode(result.status, result);
             }
-
-            return StatusCode(result.status, result);
-
-
         }
 
         [NonAction]
