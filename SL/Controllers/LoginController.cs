@@ -12,13 +12,31 @@ namespace SL.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        [HttpGet]
-        [AllowAnonymous]
-        [Route("ObtenerToken")]
-        public IActionResult GenerarToken()
+        private readonly BL.Login _login;
+
+        public LoginController(BL.Login login)
         {
-            string token = GenerarJwtToken();
-            return Ok(token);
+            _login = login;
+        }
+
+        [HttpPost]
+        public IActionResult Login([FromBody] ML.Login login)
+        {
+            //Primero encontrar a el usuario por id
+            ML.Result result = _login.Logearse(login);
+
+            if (result.Correct)
+            {
+                string token = GenerarJwtToken();
+            }
+            else
+            {
+                return StatusCode(result.status, result);
+            }
+
+            return StatusCode(result.status, result);
+
+
         }
 
         [NonAction]
