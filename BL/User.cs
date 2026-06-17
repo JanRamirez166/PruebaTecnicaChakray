@@ -182,9 +182,6 @@ namespace BL
                     addresses = user.addresses
                 };
 
-
-                user.password = null;
-
                 result.Object = userAgregado;
                 result.Correct = true;
                 result.status = 201;
