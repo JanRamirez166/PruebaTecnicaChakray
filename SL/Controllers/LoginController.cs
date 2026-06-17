@@ -27,7 +27,7 @@ namespace SL.Controllers
 
             if (result.Correct)
             {
-                string token = GenerarJwtToken();
+                string token = GenerarJwtToken(login.tax_id);
                 return Ok(token);
             }
             else
@@ -37,11 +37,10 @@ namespace SL.Controllers
         }
 
         [NonAction]
-        public string GenerarJwtToken()
+        public string GenerarJwtToken(string name)
         {
             var claims = new[] {
-                new Claim(ClaimTypes.Role, "Administrador"),
-                new Claim(ClaimTypes.Name, "Elios")
+                new Claim(ClaimTypes.Name, name)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ddlkfhlwuefefgksdfdsfheoiyeoyyuefk"));
@@ -51,7 +50,7 @@ namespace SL.Controllers
                 issuer: "yourdomain.com",
                 audience: "yourdomain.com",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
